@@ -21,7 +21,7 @@ interface ProxyManager
      * Retrieves a free proxy with the given protocol.
      *
      * @param string $protocol The protocol of the proxy (default: 'https')
-     * @return \Proxy|null The retrieved proxy or null if no free proxy is available
+     * @return Proxy|null The retrieved proxy or null if no free proxy is available
      */
     public function free(string $protocol = 'https'): ?Proxy;
 
@@ -30,7 +30,7 @@ interface ProxyManager
      *
      * @param string $protocol The protocol of the proxy (default: 'https')
      * @throws \Throwable Exception that occurred during the retrieval process
-     * @return \Proxy|null The randomly selected proxy, or null if none are available
+     * @return Proxy|null The randomly selected proxy, or null if none are available
      */
     public function random(string $protocol = 'https'): ?Proxy;
 

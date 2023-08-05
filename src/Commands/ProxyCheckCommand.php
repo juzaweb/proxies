@@ -13,14 +13,40 @@ namespace Juzaweb\Proxies\Commands;
 use Illuminate\Console\Command;
 use Juzaweb\Proxies\Contracts\ProxyManager;
 use Juzaweb\Proxies\Models\Proxy;
+use Symfony\Component\Console\Input\InputOption;
 
 class ProxyCheckCommand extends Command
 {
-    protected $signature = 'proxy:check';
+    protected $name = 'proxy:check';
 
-    protected $description = 'Command check proxies.';
+    protected $description = 'Check proxies command.';
 
     public function handle(): int
+    {
+        if ($proxy = $this->option('proxy')) {
+            // Proxy format example: 127.0.0.1:8080
+            $proxy = explode(':', $proxy);
+
+            $test = app(\Juzaweb\Proxies\Contracts\Proxy::class)->test(
+                $proxy[0],
+                $proxy[1],
+                'http',
+                ['throwable' => true]
+            );
+
+            if ($test) {
+                $this->info("=> OK {$proxy[0]}:{$proxy[1]}");
+            } else {
+                $this->error("=> Error {$proxy[0]}:{$proxy[1]}");
+            }
+        } else {
+            $this->testAllProxies();
+        }
+
+        return 0;
+    }
+
+    public function testAllProxies(): void
     {
         $proxies = Proxy::where(['is_free' => true])->get();
 
@@ -34,7 +60,12 @@ class ProxyCheckCommand extends Command
                 $this->error("=> Error {$proxy->id}");
             }
         }
+    }
 
-        return Command::SUCCESS;
+    protected function getOptions(): array
+    {
+        return [
+            ['proxy', null, InputOption::VALUE_OPTIONAL, 'Proxy for test, if not set, all proxies.'],
+        ];
     }
 }
