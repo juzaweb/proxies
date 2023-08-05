@@ -8,18 +8,4 @@
  * @license    GNU V2
  */
 
-return [
-    'tests' => [
-        /**
-         * Test site url
-         * Default: https://translate.google.com
-         */
-        'site_url' => env('PROXY_TEST_SITE_URL', 'https://translate.google.com'),
-
-        /**
-         * Test timeout in seconds
-         * Default: 20 seconds
-         */
-        'timeout' => env('PROXY_TEST_TIMEOUT', 10),
-    ],
-];
+return [];

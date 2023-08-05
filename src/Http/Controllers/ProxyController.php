@@ -43,6 +43,12 @@ class ProxyController extends PageController
         return $this->success(['message' => __('Proxies imported.')]);
     }
 
+    protected function parseDataForSave(array $attributes, ...$params): array
+    {
+        $attributes['active'] = !empty($attributes['active']) ? 1 : 0;
+        return $attributes;
+    }
+
     protected function getDataTable(...$params): ProxyDatatable
     {
         return new ProxyDatatable();
@@ -54,7 +60,7 @@ class ProxyController extends PageController
             'ip' => ['required'],
             'port' => ['required'],
             'protocol' => ['required', 'in:http,https'],
-            'active' => ['required', 'in:0,1'],
+            'active' => ['nullable', 'in:1'],
         ];
     }
 

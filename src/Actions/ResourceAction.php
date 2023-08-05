@@ -14,6 +14,58 @@ class ResourceAction extends Action
         //$this->addAction(Action::INIT_ACTION, [$this, 'addResources']);
         $this->addAction(Action::BACKEND_INIT, [$this, 'addMenu']);
         $this->addAction(Action::BACKEND_INIT, [$this, 'addAdminAjax']);
+        $this->addAction(Action::INIT_ACTION, [$this, 'addConfigs']);
+    }
+
+    public function addConfigs(): void
+    {
+        $this->hookAction->addSettingForm(
+            'proxies',
+            [
+                'name' => 'Proxies',
+            ]
+        );
+
+        $this->hookAction->registerConfig(
+            [
+                'proxy_test_url' => [
+                    'label' => 'Test proxy url',
+                    'form' => 'proxies',
+                    'data' => [
+                        'default' => 'https://translate.google.com',
+                    ]
+                ],
+                'proxy_test_timeout' => [
+                    'label' => 'Test proxy timeout',
+                    'form' => 'proxies',
+                    'data' => [
+                        'default' => 20,
+                    ]
+                ],
+                'proxy_auto_test_enable' => [
+                    'label' => 'Auto test proxy',
+                    'form' => 'proxies',
+                    'type' => 'select',
+                    'data' => [
+                        'options' => [
+                            0 => 'Disabled',
+                            1 => 'Enabled',
+                        ]
+                    ]
+                ],
+                'proxy_auto_craw_free_list_enable' => [
+                    'label' => 'Auto crawl free list',
+                    'form' => 'proxies',
+                    'type' => 'select',
+                    'data' => [
+                        'options' => [
+                            0 => 'Disabled',
+                            1 => 'Enabled',
+                        ]
+                    ]
+                ]
+            ]
+        );
     }
 
     public function addAdminAjax(): void

@@ -19,7 +19,7 @@
             </div>
 
             <div class="col-md-4">
-                {{ Field::checkbox($model, 'active', ['label' => trans('jwpr::content.active')]) }}
+                {{ Field::checkbox($model, 'active', ['label' => trans('jwpr::content.active'), 'checked' => $model->active]) }}
             </div>
 
         </div>

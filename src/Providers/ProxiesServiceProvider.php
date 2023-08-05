@@ -22,7 +22,7 @@ class ProxiesServiceProvider extends ServiceProvider
         ProxyRepository::class => ProxyRepositoryEloquent::class,
     ];
 
-    public function boot()
+    public function boot(): void
     {
         $this->commands(
             [
@@ -37,12 +37,18 @@ class ProxiesServiceProvider extends ServiceProvider
         $this->app->booted(
             function () {
                 $schedule = $this->app->make(Schedule::class);
-                $schedule->command(ProxyCheckCommand::class)->hourly();
+                if (get_config('proxy_auto_test_enable') == 1) {
+                    $schedule->command(ProxyCheckCommand::class)->hourly();
+                }
+
+                if (get_config('proxy_auto_craw_free_list_enable') == 1) {
+                    $schedule->command(GetFreeProxyCommand::class)->hourly();
+                }
             }
         );
     }
 
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(
             ProxyContract::class,
