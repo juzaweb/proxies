@@ -2,27 +2,69 @@
 
 namespace Juzaweb\Proxies\Http\Controllers;
 
-use Juzaweb\CMS\Abstracts\ResourceController;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Juzaweb\Backend\Http\Controllers\Backend\PageController;
+use Juzaweb\CMS\Traits\ResourceController;
+use Juzaweb\Proxies\Http\Datatables\ProxyDatatable;
+use Juzaweb\Proxies\Models\Proxy;
+use Juzaweb\Proxies\Models\Proxy as ProxyModel;
 
-class ProxyController extends ResourceController
+class ProxyController extends PageController
 {
-    protected function getDataTable(...$params)
+    use ResourceController;
+
+    protected string $viewPrefix = 'jwpr::backend.proxy';
+
+    public function import(Request $request): JsonResponse|RedirectResponse
     {
-        // TODO: Implement getDataTable() method.
+        $request->validate(['proxies' => ['required', 'string']]);
+
+        $proxies = $request->input('proxies');
+
+        $proxies = collect(explode("\n", $proxies))
+            ->map(fn($proxy) => trim($proxy))
+            ->filter(fn($proxy) => !empty($proxy) && is_proxy_format($proxy))
+            ->map(fn($proxy) => parse_proxy_string_to_array($proxy))
+            ->values();
+
+        if ($proxies->isEmpty()) {
+            return $this->error(['message' => __('Proxies format is invalid.')]);
+        }
+
+        $exists = ProxyModel::whereIn('ip', $proxies->pluck('ip')->toArray())
+            ->get()
+            ->keyBy('ip');
+        $proxies = $proxies->filter(fn($proxy) => !isset($exists[$proxy['ip']]));
+
+        Proxy::insert($proxies->toArray());
+
+        return $this->success(['message' => __('Proxies imported.')]);
     }
 
-    protected function validator(array $attributes, ...$params)
+    protected function getDataTable(...$params): ProxyDatatable
     {
-        // TODO: Implement validator() method.
+        return new ProxyDatatable();
     }
 
-    protected function getModel(...$params)
+    protected function validator(array $attributes, ...$params): array
     {
-        // TODO: Implement getModel() method.
+        return [
+            'ip' => ['required'],
+            'port' => ['required'],
+            'protocol' => ['required', 'in:http,https'],
+            'active' => ['required', 'in:0,1'],
+        ];
     }
 
-    protected function getTitle(...$params)
+    protected function getModel(...$params): string
     {
-        // TODO: Implement getTitle() method.
+        return Proxy::class;
+    }
+
+    protected function getTitle(...$params): string
+    {
+        return 'Proxies';
     }
 }

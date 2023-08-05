@@ -64,6 +64,7 @@ class GetFreeProxyCommand extends Command
         $proxies = $html->find('textarea[readonly="readonly"]', 0)?->innertext();
 
         return collect(explode("\n", $proxies))
+            ->map(fn($proxy) => trim($proxy))
             ->filter(fn($proxy) => !empty($proxy) && $this->isProxyFormat($proxy))
             ->map(fn($proxy) => $this->parseProxyStringToArray($proxy))
             ->values();

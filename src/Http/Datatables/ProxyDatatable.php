@@ -2,10 +2,13 @@
 
 namespace Juzaweb\Proxies\Http\Datatables;
 
-use Juzaweb\Backend\Http\Datatables\ResourceDatatable;
+use Juzaweb\CMS\Abstracts\DataTable;
+use Juzaweb\CMS\Repositories\Criterias\FilterCriteria;
+use Juzaweb\CMS\Repositories\Criterias\SearchCriteria;
 use Juzaweb\Proxies\Models\Proxy;
+use Juzaweb\Proxies\Repositories\ProxyRepository;
 
-class ProxyDatatable extends ResourceDatatable
+class ProxyDatatable extends DataTable
 {
     /**
      * Columns datatable
@@ -64,5 +67,13 @@ class ProxyDatatable extends ResourceDatatable
                 Proxy::destroy($ids);
                 break;
         }
+    }
+
+    public function query(array $data)
+    {
+        return app()->make(ProxyRepository::class)
+            ->pushCriteria(new FilterCriteria($data))
+            ->pushCriteria(new SearchCriteria($data))
+            ->getQuery();
     }
 }

@@ -10,3 +10,7 @@
 | contains the "admin" middleware group. Now create something great!
 |
 */
+
+use Juzaweb\Proxies\Http\Controllers\ProxyController;
+
+Route::jwResource('proxies', ProxyController::class);
