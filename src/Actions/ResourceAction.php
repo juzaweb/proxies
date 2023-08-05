@@ -77,6 +77,14 @@ class ResourceAction extends Action
                 'callback' => [ProxyController::class, 'import'],
             ]
         );
+
+        $this->hookAction->registerAdminAjax(
+            'proxies.re-check',
+            [
+                'method' => 'POST',
+                'callback' => [ProxyController::class, 'recheck'],
+            ]
+        );
     }
 
     public function addMenu(): void

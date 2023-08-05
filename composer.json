@@ -9,7 +9,8 @@
             "version": "1.0",
             "providers": [
                 "Juzaweb\\Proxies\\Providers\\ProxiesServiceProvider"
-            ]
+            ],
+            "setting_url": "setting/system/proxies"
         }
     },
     "autoload": {

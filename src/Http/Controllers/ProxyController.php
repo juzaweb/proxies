@@ -43,6 +43,12 @@ class ProxyController extends PageController
         return $this->success(['message' => __('Proxies imported.')]);
     }
 
+    public function recheck(Request $request): JsonResponse|RedirectResponse
+    {
+        $total = Proxy::where(['is_free' => true])->count();
+
+    }
+
     protected function parseDataForSave(array $attributes, ...$params): array
     {
         $attributes['active'] = !empty($attributes['active']) ? 1 : 0;
