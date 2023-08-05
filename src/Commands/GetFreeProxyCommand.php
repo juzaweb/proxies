@@ -8,7 +8,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Juzaweb\Proxies\Contracts\Proxy;
 use Juzaweb\Proxies\Models\Proxy as ProxyModel;
-use function PHPUnit\Framework\matches;
 
 class GetFreeProxyCommand extends Command
 {
@@ -20,6 +19,13 @@ class GetFreeProxyCommand extends Command
     {
         $helper = app(Proxy::class);
         $proxies = $this->getFreeProxies();
+
+        $exists = ProxyModel::whereIn('ip', $proxies->pluck('ip')->toArray())
+            ->get()
+            ->keyBy('ip');
+
+        $proxies = $proxies->filter(fn($proxy) => !isset($exists[$proxy['ip']]));
+
         foreach ($proxies as $proxy) {
             $this->info("Ping {$proxy['ip']}:{$proxy['port']}");
 
