@@ -1,0 +1,20 @@
+{
+    "name": "juzaweb/proxies",
+    "description": "Craw and management proxies",
+    "extra": {
+        "juzaweb": {
+            "name": "Proxies management",
+            "domain": "jwpr",
+            "cms_min": "3.3",
+            "version": "1.0",
+            "providers": [
+                "Juzaweb\\Proxies\\Providers\\ProxiesServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Juzaweb\\Proxies\\": "src/"
+        }
+    }
+}
