@@ -31,7 +31,7 @@
 
         $(document).on('ready', function() {
             $('#re-check').on('click', function() {
-                ajaxRequest();
+
             })
         });
     </script>
