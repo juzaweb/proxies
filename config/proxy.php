@@ -20,6 +20,6 @@ return [
          * Test timeout in seconds
          * Default: 20 seconds
          */
-        'timeout' => env('PROXY_TEST_TIMEOUT', 20),
+        'timeout' => env('PROXY_TEST_TIMEOUT', 10),
     ],
 ];

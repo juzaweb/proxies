@@ -8,17 +8,12 @@ use Juzaweb\Proxies\Repositories\ProxyRepository;
 
 class ResourceAction extends Action
 {
-    /**
-     * Execute the actions.
-     *
-     * @return void
-     */
     public function handle(): void
     {
         $this->addAction(Action::INIT_ACTION, [$this, 'addResources']);
     }
 
-    public function addResources()
+    public function addResources(): void
     {
         $this->hookAction->registerResource(
             'proxies',
