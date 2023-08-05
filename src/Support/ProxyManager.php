@@ -84,7 +84,7 @@ class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
         }
     }
 
-    public function test(Proxy $proxy)
+    public function test(Proxy $proxy): bool
     {
         return $this->proxy->test(
             $proxy->ip,

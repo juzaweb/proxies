@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Juzaweb\Proxies\Contracts\Proxy;
+use Juzaweb\Proxies\Models\Proxy as ProxyModel;
 
 class GetFreeProxyCommand extends Command
 {
@@ -22,7 +23,8 @@ class GetFreeProxyCommand extends Command
             'proxy' => $helper->getProxyParamByProtocol('139.255.67.51', '3888', 'https'),
             'verify' => false,
             'headers' => [
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)
+        Chrome/58.0.3029.110 Safari/537.3',
             ]
         ]);
 
@@ -34,7 +36,7 @@ class GetFreeProxyCommand extends Command
 
             foreach ($proxy['protocols'] as $protocol) {
                 if ($helper->test($proxy['ip'], $proxy['port'], $protocol)) {
-                    \Juzaweb\Proxies\Models\Proxy::create(
+                    ProxyModel::create(
                         array_merge(
                             Arr::only($proxy, ['ip', 'port', 'country']),
                             [
