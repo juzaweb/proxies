@@ -2,6 +2,7 @@
 
 namespace Juzaweb\Proxies\Http\Datatables;
 
+use Illuminate\Contracts\Database\Query\Builder;
 use Juzaweb\CMS\Abstracts\DataTable;
 use Juzaweb\CMS\Repositories\Criterias\FilterCriteria;
 use Juzaweb\CMS\Repositories\Criterias\SearchCriteria;
@@ -60,7 +61,7 @@ class ProxyDatatable extends DataTable
         ];
     }
 
-    public function bulkActions($action, $ids)
+    public function bulkActions($action, $ids): void
     {
         switch ($action) {
             case 'delete':
@@ -69,7 +70,7 @@ class ProxyDatatable extends DataTable
         }
     }
 
-    public function query(array $data)
+    public function query(array $data): Builder
     {
         return app()->make(ProxyRepository::class)
             ->pushCriteria(new FilterCriteria($data))
