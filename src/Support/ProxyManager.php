@@ -23,7 +23,7 @@ class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
         $this->proxy = $this->app[ProxyContract::class];
     }
 
-    public function free(string $protocol = 'https'): ?Proxy
+    public function free(string $protocol = 'http'): ?Proxy
     {
         while (true) {
             $proxy = Proxy::where(['protocol' => $protocol, 'is_free' => true, 'active' => true])
@@ -84,17 +84,19 @@ class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
         }
     }
 
-    public function test(Proxy $proxy): bool
+    public function test(Proxy $proxy, array $options = []): bool
     {
+        $options = array_merge(['username' => $proxy->username, 'password' => $proxy->password], $options);
+
         return $this->proxy->test(
             $proxy->ip,
             $proxy->port,
             $proxy->protocol,
-            ['username' => $proxy->username, 'password' => $proxy->password]
+            $options
         );
     }
 
-    public function testOrDisable(Proxy $proxy): bool
+    public function testOrDisable(Proxy $proxy, array $options = []): bool
     {
         if (!$this->test($proxy)) {
             $proxy->update(['active' => false]);

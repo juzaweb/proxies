@@ -30,6 +30,7 @@ class Proxy implements ProxyContract
                 [
                     'timeout' => $options['timeout'] ?? get_config('proxy_test_timeout', 20),
                     'proxy' => $this->getProxyParamByProtocol($ip, $port, $protocol, $options),
+                    'connect_timeout' => $options['connect_timeout'] ?? 10,
                     'verify' => false,
                     'headers' => [
                         'User-Agent' => $userAgent,

@@ -37,10 +37,11 @@ interface ProxyManager
     /**
      * Test a proxy is action or fail.
      *
-     * @param Proxy $proxy The Proxy object to be tested.
+     * @param  Proxy  $proxy  The Proxy object to be tested.
+     * @param  array  $options
      * @return bool The boolean result of the test.
      */
-    public function test(Proxy $proxy): bool;
+    public function test(Proxy $proxy, array $options = []): bool;
 
-    public function testOrDisable(Proxy $proxy): bool;
+    public function testOrDisable(Proxy $proxy, array $options = []): bool;
 }

@@ -11,6 +11,7 @@
 namespace Juzaweb\Proxies\Commands;
 
 use Illuminate\Console\Command;
+use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
 use Juzaweb\Proxies\Contracts\ProxyManager;
 use Juzaweb\Proxies\Models\Proxy;
 use Symfony\Component\Console\Input\InputOption;
@@ -27,11 +28,11 @@ class ProxyCheckCommand extends Command
             // Proxy format example: 127.0.0.1:8080
             $proxy = explode(':', $proxy);
 
-            $test = app(\Juzaweb\Proxies\Contracts\Proxy::class)->test(
+            $test = app(ProxyContract::class)->test(
                 $proxy[0],
                 $proxy[1],
                 'http',
-                ['throwable' => true]
+                ['throwable' => $this->option('throwable')]
             );
 
             if ($test) {
@@ -51,7 +52,7 @@ class ProxyCheckCommand extends Command
         $proxies = Proxy::where(['is_free' => true])->get();
 
         foreach ($proxies as $proxy) {
-            if (app(ProxyManager::class)->testOrDisable($proxy)) {
+            if (app(ProxyManager::class)->testOrDisable($proxy, ['throwable' => $this->option('throwable')])) {
                 if (!$proxy->active) {
                     $proxy->update(['active' => true]);
                 }
@@ -66,6 +67,7 @@ class ProxyCheckCommand extends Command
     {
         return [
             ['proxy', null, InputOption::VALUE_OPTIONAL, 'Proxy for test, if not set, all proxies.'],
+            ['throwable', null, InputOption::VALUE_NEGATABLE, 'Throw exception if test failed.', false],
         ];
     }
 }
