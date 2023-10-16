@@ -49,18 +49,21 @@ class ProxyCheckCommand extends Command
 
     public function testAllProxies(): void
     {
-        $proxies = Proxy::where(['is_free' => true])->get();
-
-        foreach ($proxies as $proxy) {
-            if (app(ProxyManager::class)->testOrDisable($proxy, ['throwable' => $this->option('throwable')])) {
-                if (!$proxy->active) {
-                    $proxy->update(['active' => true]);
+        Proxy::where(['is_free' => true])->chunkById(
+            100,
+            function ($proxies) {
+                foreach ($proxies as $proxy) {
+                    if (app(ProxyManager::class)->testOrDisable($proxy, ['throwable' => $this->option('throwable')])) {
+                        if (!$proxy->active) {
+                            $proxy->update(['active' => true]);
+                        }
+                        $this->info("=> OK {$proxy->id}");
+                    } else {
+                        $this->error("=> Error {$proxy->id}");
+                    }
                 }
-                $this->info("=> OK {$proxy->id}");
-            } else {
-                $this->error("=> Error {$proxy->id}");
             }
-        }
+        );
     }
 
     protected function getOptions(): array
