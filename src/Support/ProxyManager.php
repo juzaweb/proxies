@@ -98,7 +98,7 @@ class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
 
     public function testOrDisable(Proxy $proxy, array $options = []): bool
     {
-        if (!$this->test($proxy)) {
+        if (!$this->test($proxy, $options)) {
             $proxy->update(['active' => false]);
 
             return false;
