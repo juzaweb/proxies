@@ -55,7 +55,7 @@ class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
         }
     }
 
-    public function random(string $protocol = 'https'): ?Proxy
+    public function random(string $protocol = 'http'): ?Proxy
     {
         while (true) {
             DB::beginTransaction();
