@@ -37,7 +37,7 @@ class ProxyDatatable extends DataTable
             ],
             'is_free' => [
                 'label' => trans('jwpr::content.is_free'),
-                'formatter' => fn($value, $row, $index) => $value == 1 ? 'Yes': 'No',
+                'formatter' => fn($value, $row, $index) => $value == 1 ? 'Yes' : 'No',
             ],
             'country' => [
                 'label' => trans('jwpr::content.country'),
@@ -59,6 +59,31 @@ class ProxyDatatable extends DataTable
                 }
             ]
         ];
+    }
+
+    public function searchFields(): array
+    {
+        $fields = parent::searchFields();
+
+        $fields['is_free'] = [
+            'label' => trans('jwpr::content.is_free'),
+            'type' => 'select',
+            'options' => [
+                1 => 'Yes',
+                0 => 'No',
+            ],
+        ];
+
+        $fields['active'] = [
+            'label' => trans('jwpr::content.active'),
+            'type' => 'select',
+            'options' => [
+                1 => 'Active',
+                0 => 'Inactive',
+            ]
+        ];
+
+        return $fields;
     }
 
     public function bulkActions($action, $ids): void
