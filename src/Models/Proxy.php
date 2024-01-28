@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Juzaweb\CMS\Models\Model;
 use Juzaweb\CMS\Traits\ResourceModel;
+use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
 
 /**
  * Juzaweb\Proxies\Models\Proxy
@@ -58,7 +59,7 @@ class Proxy extends Model
 
     public function toGuzzleHttpProxy(): string|array
     {
-        return app(\Juzaweb\Proxies\Contracts\Proxy::class)->getProxyParamByProtocol(
+        return app(ProxyContract::class)->getProxyParamByProtocol(
             $this->ip,
             $this->port,
             $this->protocol,
