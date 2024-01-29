@@ -1,6 +1,8 @@
 {
     "name": "juzaweb/proxies",
     "description": "Craw and management proxies",
+    "type": "juzaweb-plugin",
+    "license": "MIT",
     "extra": {
         "juzaweb": {
             "name": "Proxies management",
