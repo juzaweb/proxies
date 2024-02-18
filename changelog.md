@@ -1,3 +1,6 @@
+### v1.0.1 
+* :+1: Fix migrate
+
 ### v1.0.0 
 * :+1: Update type composer
 * :+1: Add test
