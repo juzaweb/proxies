@@ -36,7 +36,7 @@ class ProxiesServiceProvider extends ServiceProvider
     {
         $this->app->singleton(
             ProxyContract::class,
-            fn($app) => new Proxy($app)
+            fn() => new Proxy()
         );
 
         $this->app->singleton(
