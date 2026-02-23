@@ -17,6 +17,8 @@ use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract
 {
+    protected ?Client $client = null;
+
     public function __construct(protected $app) {}
 
     public function test(string $ip, int $port, string $protocol, array $options = []): bool
@@ -25,7 +27,8 @@ class Proxy implements ProxyContract
         $userAgent .= 'Chrome/58.0.3029.110 Safari/537.3';
 
         try {
-            $client = new Client(
+            $response = $this->getClient()->get(
+                setting('proxy_test_url', 'https://translate.google.com'),
                 [
                     'timeout' => $options['timeout'] ?? setting('proxy_test_timeout', 20),
                     'proxy' => $this->getProxyParamByProtocol($ip, $port, $protocol, $options),
@@ -37,8 +40,6 @@ class Proxy implements ProxyContract
                 ]
             );
 
-            $response = $client->get(setting('proxy_test_url', 'https://translate.google.com'));
-
             if ($response->getStatusCode() == 200) {
                 return true;
             }
@@ -47,6 +48,15 @@ class Proxy implements ProxyContract
         }
 
         return false;
+    }
+
+    protected function getClient(): Client
+    {
+        if ($this->client === null) {
+            $this->client = new Client();
+        }
+
+        return $this->client;
     }
 
     public function getProxyParamByProtocol(string $ip, int $port, string $protocol, array $options = []): string|array
