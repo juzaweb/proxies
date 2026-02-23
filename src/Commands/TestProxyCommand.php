@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Proxies\Commands;
+namespace Juzaweb\Modules\Proxies\Commands;
 
 use Illuminate\Console\Command;
-use Juzaweb\Proxies\Contracts\Proxy;
+use Juzaweb\Modules\Proxies\Contracts\Proxy;
 use Symfony\Component\Console\Input\InputArgument;
 
 class TestProxyCommand extends Command

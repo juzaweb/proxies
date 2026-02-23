@@ -1,4 +1,5 @@
 <?php
+
 /**
  * JUZAWEB CMS - Laravel CMS for Your Project
  *
@@ -8,13 +9,13 @@
  * @license    GNU V2
  */
 
-namespace Juzaweb\Proxies\Support;
+namespace Juzaweb\Modules\Proxies\Support;
 
 use Illuminate\Support\Facades\DB;
-use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
-use Juzaweb\Proxies\Models\Proxy;
+use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
+use Juzaweb\Modules\Proxies\Models\Proxy;
 
-class ProxyManager implements \Juzaweb\Proxies\Contracts\ProxyManager
+class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
 {
     protected ProxyContract $proxy;
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * JUZAWEB CMS - Laravel CMS for Your Project
  *
@@ -8,12 +9,12 @@
  * @license    GNU V2
  */
 
-namespace Juzaweb\Proxies\Contracts;
+namespace Juzaweb\Modules\Proxies\Contracts;
 
-use Juzaweb\Proxies\Models\Proxy;
+use Juzaweb\Modules\Proxies\Models\Proxy;
 
 /**
- * @see \Juzaweb\Proxies\Support\ProxyManager
+ * @see \Juzaweb\Modules\Proxies\Support\ProxyManager
  */
 interface ProxyManager
 {

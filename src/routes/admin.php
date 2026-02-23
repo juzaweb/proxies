@@ -11,6 +11,6 @@
 |
 */
 
-use Juzaweb\Proxies\Http\Controllers\ProxyController;
+use Juzaweb\Modules\Proxies\Http\Controllers\ProxyController;
 
 Route::jwResource('proxies', ProxyController::class);

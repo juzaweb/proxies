@@ -1,9 +1,9 @@
 <?php
 
-namespace Juzaweb\Proxies\Models;
+namespace Juzaweb\Modules\Proxies\Models;
 
 use Juzaweb\CMS\Models\Model;
-use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
+use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy extends Model
 {

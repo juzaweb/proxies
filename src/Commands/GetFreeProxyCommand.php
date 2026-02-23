@@ -1,13 +1,13 @@
 <?php
 
-namespace Juzaweb\Proxies\Commands;
+namespace Juzaweb\Modules\Proxies\Commands;
 
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Juzaweb\Proxies\Contracts\Proxy;
-use Juzaweb\Proxies\Models\Proxy as ProxyModel;
+use Juzaweb\Modules\Proxies\Contracts\Proxy;
+use Juzaweb\Modules\Proxies\Models\Proxy as ProxyModel;
 
 class GetFreeProxyCommand extends Command
 {

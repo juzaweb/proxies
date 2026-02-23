@@ -1,4 +1,5 @@
 <?php
+
 /**
  * JUZAWEB CMS - Laravel CMS for Your Project
  *
@@ -8,17 +9,15 @@
  * @license    GNU V2
  */
 
-namespace Juzaweb\Proxies\Support;
+namespace Juzaweb\Modules\Proxies\Support;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Arr;
-use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
+use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract
 {
-    public function __construct(protected $app)
-    {
-    }
+    public function __construct(protected $app) {}
 
     public function test(string $ip, int $port, string $protocol, array $options = []): bool
     {

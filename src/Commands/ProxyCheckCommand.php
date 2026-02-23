@@ -1,4 +1,5 @@
 <?php
+
 /**
  * JUZAWEB CMS - Laravel CMS for Your Project
  *
@@ -8,12 +9,12 @@
  * @license    GNU V2
  */
 
-namespace Juzaweb\Proxies\Commands;
+namespace Juzaweb\Modules\Proxies\Commands;
 
 use Illuminate\Console\Command;
-use Juzaweb\Proxies\Contracts\Proxy as ProxyContract;
-use Juzaweb\Proxies\Contracts\ProxyManager;
-use Juzaweb\Proxies\Models\Proxy;
+use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
+use Juzaweb\Modules\Proxies\Contracts\ProxyManager;
+use Juzaweb\Modules\Proxies\Models\Proxy;
 use Symfony\Component\Console\Input\InputOption;
 
 class ProxyCheckCommand extends Command
