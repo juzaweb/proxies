@@ -25,12 +25,12 @@ class Proxy implements ProxyContract
         $userAgent .= 'Chrome/58.0.3029.110 Safari/537.3';
 
         try {
-            $client = new Client(
+            $client = $this->createClient(
                 [
                     'timeout' => $options['timeout'] ?? setting('proxy_test_timeout', 20),
                     'proxy' => $this->getProxyParamByProtocol($ip, $port, $protocol, $options),
                     'connect_timeout' => $options['connect_timeout'] ?? 20,
-                    'verify' => false,
+                    'verify' => true,
                     'headers' => [
                         'User-Agent' => $userAgent,
                     ]
@@ -67,5 +67,10 @@ class Proxy implements ProxyContract
         }
 
         throw new \Exception("Protocol {$protocol} not supported.");
+    }
+
+    protected function createClient(array $config): Client
+    {
+        return new Client($config);
     }
 }
