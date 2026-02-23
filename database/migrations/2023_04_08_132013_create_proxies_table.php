@@ -23,7 +23,9 @@ return new class extends Migration {
                 $table->boolean('is_free')->default(true);
                 $table->boolean('active')->default(true);
                 $table->unique(['ip', 'port', 'protocol']);
-                $table->timestamps();
+                $table->string('username')->nullable();
+                $table->string('password')->nullable();
+                $table->datetimes();
             }
         );
     }
