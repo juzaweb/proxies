@@ -17,15 +17,14 @@ use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract
 {
+    const DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3';
+
     protected ?Client $client = null;
 
     public function __construct(protected $app) {}
 
     public function test(string $ip, int $port, string $protocol, array $options = []): bool
     {
-        $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ';
-        $userAgent .= 'Chrome/58.0.3029.110 Safari/537.3';
-
         try {
             $response = $this->getClient()->get(
                 setting('proxy_test_url', 'https://translate.google.com'),
@@ -35,7 +34,7 @@ class Proxy implements ProxyContract
                     'connect_timeout' => $options['connect_timeout'] ?? 20,
                     'verify' => false,
                     'headers' => [
-                        'User-Agent' => $userAgent,
+                        'User-Agent' => setting('proxy_user_agent', self::DEFAULT_USER_AGENT),
                     ]
                 ]
             );
