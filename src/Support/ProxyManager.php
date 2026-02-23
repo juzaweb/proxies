@@ -26,18 +26,21 @@ class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
 
     public function free(string $protocol = 'http'): ?Proxy
     {
-        while (true) {
-            $proxy = Proxy::where(['protocol' => $protocol, 'is_free' => true, 'active' => true])
-                ->lockForUpdate()
-                ->inRandomOrder()
-                ->first();
-
-            if (empty($proxy)) {
-                return null;
-            }
-
+        $i = 0;
+        while ($i < 10) {
+            $i++;
             DB::beginTransaction();
             try {
+                $proxy = Proxy::where(['protocol' => $protocol, 'is_free' => true, 'active' => true])
+                    ->lockForUpdate()
+                    ->inRandomOrder()
+                    ->first();
+
+                if (empty($proxy)) {
+                    DB::commit();
+                    return null;
+                }
+
                 $result = $this->testOrDisable($proxy);
 
                 if ($result) {
@@ -54,11 +57,15 @@ class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
                 return $proxy;
             }
         }
+
+        return null;
     }
 
     public function random(string $protocol = 'http'): ?Proxy
     {
-        while (true) {
+        $i = 0;
+        while ($i < 10) {
+            $i++;
             DB::beginTransaction();
             try {
                 $proxy = Proxy::where(['protocol' => $protocol, 'active' => true])
@@ -83,6 +90,8 @@ class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
                 return $proxy;
             }
         }
+
+        return null;
     }
 
     public function test(Proxy $proxy, array $options = []): bool
