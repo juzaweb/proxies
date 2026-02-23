@@ -5,6 +5,7 @@ namespace Juzaweb\Modules\Proxies\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Juzaweb\Modules\Core\Http\Controllers\AdminController;
 use Juzaweb\Modules\Core\Facades\Breadcrumb;
+use Juzaweb\Modules\Proxies\Http\Requests\ProxyRequest;
 use Juzaweb\Modules\Proxies\Http\Datatables\ProxyDatatable;
 use Juzaweb\Modules\Proxies\Models\Proxy;
 
@@ -32,14 +33,8 @@ class ProxyController extends AdminController
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ProxyRequest $request)
     {
-        $this->validate($request, [
-            'ip' => 'required|string|max:150',
-            'port' => 'required|string|max:10',
-            'protocol' => 'required|string|max:20',
-        ]);
-
         Proxy::create($request->all());
 
         return $this->success([
@@ -62,14 +57,8 @@ class ProxyController extends AdminController
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(ProxyRequest $request, $id)
     {
-        $this->validate($request, [
-            'ip' => 'required|string|max:150',
-            'port' => 'required|string|max:10',
-            'protocol' => 'required|string|max:20',
-        ]);
-
         $model = Proxy::findOrFail($id);
         $model->update($request->all());
 
