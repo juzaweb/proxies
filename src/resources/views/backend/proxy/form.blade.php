@@ -2,8 +2,10 @@
 
 @section('content')
     @component('core::components.form', [
-        'action' => $model->id ? route('proxies.update', $model->id) : route('proxies.store'),
+        'action' => $model->id ? route('admin.proxies.update', $model->id) : route('admin.proxies.store'),
         'method' => $model->id ? 'PUT' : 'POST',
+        'notify' => true,
+        'token' => true,
     ])
         <div class="row">
             <div class="col-md-8">
