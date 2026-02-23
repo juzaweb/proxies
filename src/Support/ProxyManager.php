@@ -17,11 +17,8 @@ use Juzaweb\Modules\Proxies\Models\Proxy;
 
 class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
 {
-    protected ProxyContract $proxy;
-
-    public function __construct(protected $app)
+    public function __construct(protected ProxyContract $proxy)
     {
-        $this->proxy = $this->app[ProxyContract::class];
     }
 
     public function free(string $protocol = 'http'): ?Proxy
