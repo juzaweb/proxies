@@ -4,6 +4,8 @@ namespace Juzaweb\Modules\Proxies\Providers;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\ServiceProvider;
+use Juzaweb\Hooks\Facades\Hook;
+use Juzaweb\Modules\Proxies\Actions\MenuAction;
 use Juzaweb\Modules\Proxies\Commands\ProxyCheckCommand;
 use Juzaweb\Modules\Proxies\Commands\TestProxyCommand;
 use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
@@ -21,6 +23,12 @@ class ProxiesServiceProvider extends ServiceProvider
                 ProxyCheckCommand::class,
             ]
         );
+
+        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
+        $this->loadViewsFrom(__DIR__ . '/../../src/resources/views', 'proxies');
+        $this->loadRoutesFrom(__DIR__ . '/../../src/routes/admin.php');
+
+        Hook::addAction('juzaweb.init', [MenuAction::class, 'handle']);
 
         $this->app->booted(
             function () {
