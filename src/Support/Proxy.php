@@ -21,8 +21,6 @@ class Proxy implements ProxyContract
 
     protected ?Client $client = null;
 
-    public function __construct(protected $app) {}
-
     public function test(string $ip, int $port, string $protocol, array $options = []): bool
     {
         try {

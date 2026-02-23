@@ -11,6 +11,7 @@
 
 namespace Juzaweb\Modules\Proxies\Support;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\DB;
 use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 use Juzaweb\Modules\Proxies\Models\Proxy;
@@ -19,9 +20,13 @@ class ProxyManager implements \Juzaweb\Modules\Proxies\Contracts\ProxyManager
 {
     protected ProxyContract $proxy;
 
-    public function __construct(protected $app)
+    public function __construct(ProxyContract|Application $proxy)
     {
-        $this->proxy = $this->app[ProxyContract::class];
+        if ($proxy instanceof Application) {
+            $this->proxy = $proxy[ProxyContract::class];
+        } else {
+            $this->proxy = $proxy;
+        }
     }
 
     public function free(string $protocol = 'http'): ?Proxy

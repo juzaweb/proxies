@@ -45,7 +45,7 @@ class ProxyTest extends TestCase
         $this->app->instance(\Juzaweb\Modules\Proxies\Contracts\Proxy::class, $mockProxy);
 
         // Manually create ProxyManager to ensure it uses the mocked Proxy contract
-        $manager = new \Juzaweb\Modules\Proxies\Support\ProxyManager($this->app);
+        $manager = new \Juzaweb\Modules\Proxies\Support\ProxyManager($mockProxy);
 
         $retrievedProxy = $manager->free('http');
 

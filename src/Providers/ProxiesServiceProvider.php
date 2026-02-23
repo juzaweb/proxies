@@ -59,7 +59,7 @@ class ProxiesServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             ProxyManagerContract::class,
-            fn($app) => new ProxyManager($app)
+            ProxyManager::class
         );
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/proxy.php', 'proxy');
