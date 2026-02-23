@@ -2,7 +2,7 @@
 
 namespace Juzaweb\Modules\Proxies\Models;
 
-use Juzaweb\CMS\Models\Model;
+use Juzaweb\Modules\Core\Models\Model;
 use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy extends Model

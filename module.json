@@ -1,0 +1,12 @@
+{
+    "name": "Proxies",
+    "alias": "proxies",
+    "title": "Proxies",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Juzaweb\\Modules\\Proxies\\Providers\\ProxiesServiceProvider"
+    ],
+    "files": []
+}
