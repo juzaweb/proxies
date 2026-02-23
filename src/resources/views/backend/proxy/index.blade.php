@@ -4,7 +4,7 @@
     <div class="row mb-3">
         <div class="col-md-12">
             <div class="btn-group float-right">
-                <a href="{{ route('proxies.create') }}" class="btn btn-success">
+                <a href="{{ route('admin.proxies.create') }}" class="btn btn-success">
                     <i class="fa fa-plus-circle"></i> {{ trans('core::app.add_new') }}
                 </a>
             </div>

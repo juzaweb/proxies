@@ -42,7 +42,7 @@ class ProxyDatatable extends DataTable
         return $query;
     }
 
-    public function dataTable($query)
+    public function dataTable(Builder $query): \Yajra\DataTables\EloquentDataTable
     {
         $dataTable = parent::dataTable($query);
 
