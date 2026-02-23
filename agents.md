@@ -1,4 +1,4 @@
-# Copilot Instructions for Proxies Module
+# Instructions for Proxies Module
 
 ## Project Overview
 This is a JuzaWeb module for crawling and managing HTTP/HTTPS/SOCKS proxies. It provides automated proxy testing, pool management, and concurrent allocation with database locking.
