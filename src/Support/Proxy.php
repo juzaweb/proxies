@@ -27,7 +27,7 @@ class Proxy implements ProxyContract
         try {
             $client = new Client(
                 [
-                    'timeout' => $options['timeout'] ?? get_config('proxy_test_timeout', 20),
+                    'timeout' => $options['timeout'] ?? setting('proxy_test_timeout', 20),
                     'proxy' => $this->getProxyParamByProtocol($ip, $port, $protocol, $options),
                     'connect_timeout' => $options['connect_timeout'] ?? 20,
                     'verify' => false,
@@ -37,7 +37,7 @@ class Proxy implements ProxyContract
                 ]
             );
 
-            $response = $client->get(get_config('proxy_test_url', 'https://translate.google.com'));
+            $response = $client->get(setting('proxy_test_url', 'https://translate.google.com'));
 
             if ($response->getStatusCode() == 200) {
                 return true;
