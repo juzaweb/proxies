@@ -64,8 +64,13 @@ class Proxy implements ProxyContract
         if (in_array($protocol, ['http', 'https'])) {
             $username = Arr::get($options, 'username');
             $password = Arr::get($options, 'password');
-            $prefix = $username && $password ? "{$username}:{$password}@" : '';
-            return "http://{$prefix}{$ip}:{$port}";
+            if ($username && $password) {
+                $username = urlencode($username);
+                $password = urlencode($password);
+                return "http://{$username}:{$password}@{$ip}:{$port}";
+            }
+
+            return "http://{$ip}:{$port}";
         }
 
         if ($protocol == 'socks4') {
@@ -73,6 +78,14 @@ class Proxy implements ProxyContract
         }
 
         if ($protocol == 'socks5') {
+            $username = Arr::get($options, 'username');
+            $password = Arr::get($options, 'password');
+            if ($username && $password) {
+                $username = urlencode($username);
+                $password = urlencode($password);
+                return "socks5://{$username}:{$password}@{$ip}:{$port}";
+            }
+
             return "socks5://{$ip}:{$port}";
         }
 
