@@ -11,6 +11,7 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
 use Juzaweb\Modules\Proxies\Http\Controllers\Backend\ProxyController;
 
-Route::resource('proxies', ProxyController::class);
+Route::admin('proxies', ProxyController::class);

@@ -7,7 +7,7 @@
     ])
         <div class="row">
             <div class="col-md-8">
-                @component('core::components.card')
+                <x-card>
                     <div class="row">
                         <div class="col-md-6">
                             {{ Field::text(trans('IP Address'), 'ip', [
@@ -54,11 +54,11 @@
                             ]) }}
                         </div>
                     </div>
-                @endcomponent
+                </x-card>
             </div>
 
             <div class="col-md-4">
-                @component('core::components.card')
+                <x-card>
                     {{ Field::select(trans('Status'), 'active', [
                         'options' => [
                             1 => trans('Active'),
@@ -74,7 +74,7 @@
                         ],
                         'value' => $model->is_free ?? 1,
                     ]) }}
-                @endcomponent
+                </x-card>
             </div>
         </div>
     @endcomponent
