@@ -3,19 +3,6 @@
     "description": "Craw and management proxies",
     "type": "juzaweb-module",
     "license": "GPL-2.0",
-    "extra": {
-        "juzaweb": {
-            "name": "Proxies management",
-            "domain": "jwpr",
-            "cms_min": "3.3",
-            "version": "1.0",
-            "providers": [
-                "Juzaweb\\Proxies\\Providers\\ProxiesServiceProvider"
-            ],
-            "setting_url": "setting/system/proxies",
-            "networkable": true
-        }
-    },
     "autoload": {
         "psr-4": {
             "Juzaweb\\Modules\\Proxies\\": "src/",
