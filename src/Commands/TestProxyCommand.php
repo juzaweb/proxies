@@ -10,7 +10,7 @@ class TestProxyCommand extends Command
 {
     protected $name = 'proxy:test';
 
-    protected $description = 'Command description.';
+    protected $description = 'Test a proxy connection.';
 
     public function handle()
     {
@@ -32,9 +32,9 @@ class TestProxyCommand extends Command
     protected function getArguments(): array
     {
         return [
-            ['ip', InputArgument::REQUIRED, 'The ip proxy.'],
-            ['port', InputArgument::REQUIRED, 'The ip proxy.'],
-            ['protocol', InputArgument::OPTIONAL, 'The ip proxy.', 'https'],
+            ['ip', InputArgument::REQUIRED, 'The proxy IP address.'],
+            ['port', InputArgument::REQUIRED, 'The proxy port.'],
+            ['protocol', InputArgument::OPTIONAL, 'The proxy protocol (http, https, socks4, socks5).', 'https'],
         ];
     }
 }
