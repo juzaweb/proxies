@@ -17,8 +17,6 @@ use Juzaweb\Modules\Proxies\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract
 {
-    public function __construct(protected $app) {}
-
     public function test(string $ip, int $port, string $protocol, array $options = []): bool
     {
         $userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ';
