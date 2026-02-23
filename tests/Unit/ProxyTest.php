@@ -1,12 +1,11 @@
 <?php
 
-namespace Juzaweb\Modules\Proxies\Tests\Feature;
+namespace Juzaweb\Modules\Proxies\Tests\Unit;
 
 use Juzaweb\Modules\Proxies\Models\Proxy;
 use Juzaweb\Modules\Proxies\Tests\TestCase;
-use Juzaweb\Modules\Proxies\Contracts\ProxyManager;
 
-class ExampleTest extends TestCase
+class ProxyTest extends TestCase
 {
     public function test_proxies_table_exists()
     {
